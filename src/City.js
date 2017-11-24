@@ -41,7 +41,7 @@ class InfoPanel extends Component{
           <ul class="list-group list-group-flush text-center">
             <li class="list-group-item"><i class="wi wi-sunrise cityIcon"></i> 12:07:02 AM</li>
             <li class="list-group-item"><i class="wi wi-sunset cityIcon"></i> 12:07:02 AM</li>
-            <li class="list-group-item"><i class="wi wi-barometer cityIcon"></i> 1081</li>
+            <li class="list-group-item"><i class="wi wi-barometer cityIcon"></i> 1081 millibars</li>
             <li class="list-group-item"><i class="wi wi-humidity cityIcon"></i> 76 humidity</li>
           </ul>
         </div>
