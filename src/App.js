@@ -104,15 +104,21 @@ class WeatherList extends Component {
 
 class PlaceInfo extends Component {
   render(){
+    var t =new Date().toLocaleTimeString();
     return(
-      <div className="col-sm-6" style={{background:'white'}}>
+      <div>
+      <div className="col-sm-2">
+        <Chevron font="48px" klasa="wi wi-day-sunny icon" />
+      </div>
+      <div className="col-sm-6" style={{background:'white', padding:'15px 0px'}}>
         <div>
           <span className="city">{this.props.name}, </span>
           <span className="country">{this.props.country}</span>
         </div>
         <div>
-          <span>Today,</span> 05:12 PM
+          <span>Today,</span> {t}
         </div>
+      </div>
       </div>
     );
   }
@@ -121,9 +127,9 @@ class PlaceInfo extends Component {
 class LowTemp extends Component{
   render(){
     return (
-      <div className="col-sm-3" style={{background:'#34495e'}}>
+      <div className="col-sm-2 lowTemp">
         <div style={{color:'white'}}>
-          <Chevron color="red" klasa="glyphicon glyphicon-chevron-down" />
+          <Chevron color="red" font="20px" klasa="glyphicon glyphicon-chevron-down" />
           <span className="degree">{this.props.temp}°</span>
           <span className="measure">{this.props.degree}</span>
           </div>
@@ -136,9 +142,9 @@ class LowTemp extends Component{
 class HighTemp extends Component{
   render(){
     return(
-      <div className="col-sm-3" style={{background:'#2c3e50'}}>
+      <div className="col-sm-2 highTemp">
           <div style={{color:'white'}}>
-            <Chevron color="lightgreen" klasa="glyphicon glyphicon-chevron-up" />
+            <Chevron color="lightgreen" font="20px" klasa="glyphicon glyphicon-chevron-up" />
             <span className="degree">{this.props.temp}°</span>
             <span className="measure">{this.props.degree}</span>
             </div>
@@ -151,7 +157,7 @@ class HighTemp extends Component{
 class Chevron extends Component{
   render(){
     return(
-      <i style={{color:this.props.color, fontSize:'20px'}} className={this.props.klasa}></i>
+      <i style={{color:this.props.color, fontSize: this.props.font }} className={this.props.klasa}></i>
     );
   }
 }

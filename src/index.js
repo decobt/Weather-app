@@ -13,6 +13,9 @@ var data = {
   '1':{'country':'England','city':'London', 'temp':{'low':'10', 'high':'15'}},
   '2':{'country':'Spain','city':'Barcelona', 'temp':{'low':'18', 'high':'34'}},
   '3':{'country':'France','city':'Paris', 'temp':{'low':'13', 'high':'26'}},
+  '4':{'country':'Italy','city':'Rome', 'temp':{'low':'18', 'high':'32'}},
+  '5':{'country':'Portugal','city':'Lisabon', 'temp':{'low':'10', 'high':'37'}},
+  '6':{'country':'Sweden','city':'Stockholm', 'temp':{'low':'4', 'high':'12'}},
 };
 
 ReactDOM.render((

@@ -9,8 +9,8 @@ body {
   background:white;
   margin-bottom:20px
 }
-.city{font-size:30px}
-.country{font-size:24px}
+.city{font-size:30px;}
+.country{font-size:24px;}
 
 .degree{font-size:30px}
 .measure{font-size:24px}
