@@ -2,9 +2,18 @@ body {
   margin: 0;
   padding: 20px 0;
   font-family: sans-serif;
-  background:#e74c3c;
+  background: #e74c3c; /* Old browsers */
+  background: -moz-linear-gradient(top, #e74c3c 0%, #6d0019 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #e74c3c 0%,#6d0019 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #e74c3c 0%,#6d0019 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e74c3c', endColorstr='#6d0019',GradientType=0 ); /* IE6-9 */
 }
-
+html{
+  min-height:100%;
+}
+.footer{
+  color:white
+}
 .list{
   background:white;
   margin-bottom:20px
