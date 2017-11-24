@@ -13,3 +13,7 @@
   padding:20px;
   color:222;
 }
+.cityLink{
+  color:#333;
+  transition: all .2s ease-in-out;
+}
