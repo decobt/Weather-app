@@ -2,41 +2,70 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 import './index.css';
+import axios from 'axios';
 
 class City extends Component{
   constructor(props){
     super(props);
     //set initial state data
     this.state = {
-      data : this.props.route.data
+      data : ''
     }
   }
   //run before the component is rendered
   componentWillMount(){
-    //loop through the data
-    for(var i in this.state.data){
-      //find data about our city, get the name from params
-      if(this.state.data[i].city === this.props.params.name){
-        //when found, update the state with new information
-        this.setState({
-          data: this.state.data[i]
-        });
-      }
-    }
+    var self = this;
+    //get the city id from the params
+    var city = this.props.params.id;
+    //get data from api
+    axios.get('http://api.openweathermap.org/data/2.5/forecast?id='+city+'&APPID=d25b778625fdbfd3f3c5d543c6bb4fb8&units=metric&cnt=8')
+    .then(function (response) {
+      //once you get the response update the state
+      self.setState({
+        data: response.data
+      });
+    })
+    .catch(function (error) {
+      //display error if any
+      console.log(error);
+    });
   }
   render(){
-    //get forecast data and assign it to newdata
-    var newdata = this.state.data['forecast'];
     var rows = [];
-    //loop through data and create component for each
-    for(var i in newdata){
-      rows.push(<InfoPanel key={i} kluc={i} data={newdata[i]} />);
+    var city;
+    if(this.state.data !==''){
+      //get forecast data and assign it to newdata
+      var newdata = this.state.data.list;
+      //set the city name
+      city = this.state.data.city.name;
+      //loop through data and create component for each forecast item
+      for(var i in newdata){
+        rows.push(<InfoPanel key={i} data={newdata[i]} />);
+      }
     }
     return(
       <div>
-      <div><h2 style={{color:'white'}}>Location: {this.props.params.name}</h2></div>
+      <div><h2 style={{color:'white'}}>Location: {city}</h2></div>
       <div className="row">
-        {rows}
+        <div className="col-sm-12">
+
+        <div className="panel panel-default"><div className="panel-body">
+          <table className="table table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Date/Time</th>
+              <th>Temp (C)</th>
+              <th>Pressure</th>
+              <th>Humidity (%)</th>
+            </tr>
+          </thead>
+            <tbody>
+              {rows}
+            </tbody>
+          </table>
+          </div></div>
+          </div>
       </div>
       <div className="row ">
       <div className="col-sm-12">
@@ -52,31 +81,18 @@ class City extends Component{
 //Infopanel component, holds individual day forecast information
 class InfoPanel extends Component{
   render() {
-    //get the sunrise time
-    var sunrise =new Date(+this.props.data['sunrise']).toLocaleTimeString();
-    //get the sunset time
-    var sunset =new Date(+this.props.data['sunset']).toLocaleTimeString();
-
     return (
-      <div className="col-sm-4">
-        <div className="panel panel-red">
-          <div className="panel-heading  text-center">
-            <h3 style={{fontSize:'36px'}}><i className="wi wi-thermometer"></i> {this.props.data['temp']}°C</h3>
-          </div>
-          <div className="panel-body text-center" >
-            <i className={'panel-icon wi '+ this.props.data['icon']}></i>
-            <p className="lead"><strong>{ this.props.kluc }</strong></p>
-          </div>
-          <ul className="list-group list-group-flush text-center">
-            <li className="list-group-item"><i className="wi wi-sunrise cityIcon"></i> {sunrise}</li>
-            <li className="list-group-item"><i className="wi wi-sunset cityIcon"></i> {sunset}</li>
-            <li className="list-group-item">
-              <i className="wi wi-barometer cityIcon"></i> {this.props.data['pressure']} millibars</li>
-            <li className="list-group-item">
-              <i className="wi wi-humidity cityIcon"></i> {this.props.data['humidity']} humidity</li>
-          </ul>
-        </div>
-      </div>
+
+      <tr>
+        <td>
+          <img alt={this.props.data.dt} src={'http://openweathermap.org/img/w/'+this.props.data.weather['0'].icon+'.png'} />
+        </td>
+        <td>{this.props.data.dt_txt}</td>
+        <td>{this.props.data.main.temp}</td>
+        <td>{this.props.data.main.pressure}</td>
+        <td>{this.props.data.main.humidity}</td>
+      </tr>
+
     );
   }
 }
