@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import './App.css';
+import axios from 'axios';
 
 //main App component
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      data: this.props.route.data,
+      data: '',
       searchText:'',
       degree: 'C'
     }
@@ -30,9 +31,9 @@ class App extends Component {
       //loop through the data
       for(var i in newdata){
         //calculate low temperature
-        newdata[i].temp.low = ((newdata[i].temp.low - 32) / 1.8).toFixed(0);
+        newdata[i].main.temp_min = ((newdata[i].main.temp_min - 32) / 1.8).toFixed(0);
         //calculate high temperature
-        newdata[i].temp.high = ((newdata[i].temp.high - 32) / 1.8).toFixed(0);
+        newdata[i].main.temp_max = ((newdata[i].main.temp_max - 32) / 1.8).toFixed(0);
       }
       //update the state with the new data
       this.setState({
@@ -50,9 +51,9 @@ class App extends Component {
       //loop through the data
       for(var i in newdata){
         //calculate new value for low temperature
-        newdata[i].temp.low = Math.round(newdata[i].temp.low * 1.8 + 32);
+        newdata[i].main.temp_min = Math.round(newdata[i].main.temp_min * 1.8 + 32);
         //calculate new value for high temperature
-        newdata[i].temp.high = Math.round(newdata[i].temp.high * 1.8 + 32);
+        newdata[i].main.temp_max = Math.round(newdata[i].main.temp_max * 1.8 + 32);
       }
       //update the state with new values
       this.setState({
@@ -61,6 +62,22 @@ class App extends Component {
       });
     }
   }
+
+  componentWillMount(){
+      var self = this;
+      axios.get('http://api.openweathermap.org/data/2.5/group?id=6058560,6942553,2673730,4219762,4505542,2950159,5107152,5601538,792680,3128760&APPID=d25b778625fdbfd3f3c5d543c6bb4fb8&units=metric')
+      .then(function (response) {
+        //once you get the response update the state
+        self.setState({
+          data: response.data.list
+        });
+      })
+      .catch(function (error) {
+        //display error if any
+        console.log(error);
+      });
+  }
+
   render() {
     var rows = [];
     //loop through each record in the data
@@ -68,12 +85,12 @@ class App extends Component {
       //check if searchtext is not set
       if(this.state.searchText===''){
         //if it is not, push each row
-        rows.push( <WeatherList key={i} data={this.state.data[i]} degree={this.state.degree} /> );
+        rows.push( <WeatherList key={this.state.data[i].id} data={this.state.data[i]} degree={this.state.degree} /> );
       }else{
         //if searchtext is set, compare searchText with city name
-        if(this.state.data[i].city.toLowerCase().indexOf(this.state.searchText)>= 0){
+        if(this.state.data[i].name.toLowerCase().indexOf(this.state.searchText)>= 0){
           //if they match, push that record
-          rows.push( <WeatherList key={i} data={this.state.data[i]} degree={this.state.degree} /> );
+          rows.push( <WeatherList key={this.state.data[i].id} data={this.state.data[i]} degree={this.state.degree} /> );
         }
       }
     }
@@ -94,10 +111,10 @@ class SearchBar extends Component {
   render(){
     return (
       <div className="row">
-        <div className="col-sm-10">
+        <div className="col-sm-10 col-xs-7">
           <input onChange={this.props.onSearch} type="text" className="form-control" style={{marginBottom:'20px'}} placeholder="Search for a city ..." />
         </div>
-        <div className="col-sm-2">
+        <div className="col-sm-2 col-xs-5">
           <DegreeSwitcher onCelClick={this.props.onCelClick} onFarClick={this.props.onFarClick}/>
         </div>
       </div>
@@ -121,11 +138,11 @@ class DegreeSwitcher extends Component {
 class WeatherList extends Component {
   render(){
     return (
-      <Link to={'city/'+this.props.data.city} className="cityLink">
+      <Link to={'city/'+this.props.data.id} className="cityLink">
       <div className="list clearfix">
-        <PlaceInfo name={this.props.data.city} country={this.props.data.country} icon={this.props.data.icon} />
-        <LowTemp temp={this.props.data.temp.low} degree={this.props.degree}  />
-        <HighTemp temp={this.props.data.temp.high} degree={this.props.degree}/>
+        <PlaceInfo name={this.props.data.name} date={this.props.data.dt} icon={this.props.data.weather[0].icon} />
+        <LowTemp temp={this.props.data.main.temp_min} degree={this.props.degree}  />
+        <HighTemp temp={this.props.data.main.temp_max} degree={this.props.degree}/>
       </div>
       </Link>
       );
@@ -134,16 +151,15 @@ class WeatherList extends Component {
 
 class PlaceInfo extends Component {
   render(){
-    var t =new Date().toLocaleTimeString();
+    var t =new Date(this.props.date).toLocaleTimeString();
     return(
       <div>
-      <div className="col-sm-2">
-        <Chevron font="48px" klasa={this.props.icon+' icon'} />
+      <div className="col-sm-2 col-xs-4">
+        <img alt={this.props.name} src={'http://openweathermap.org/img/w/'+this.props.icon+'.png'} style={{padding:'20px'}} />
       </div>
-      <div className="col-sm-6" style={{background:'white', padding:'15px 0px'}}>
+      <div className="col-sm-6 col-xs-8" style={{background:'white', padding:'15px 0px'}}>
         <div>
-          <span className="city">{this.props.name}, </span>
-          <span className="country">{this.props.country}</span>
+          <span className="city">{this.props.name} </span>
         </div>
         <div>
           <span>Today,</span> {t}
@@ -158,7 +174,7 @@ class PlaceInfo extends Component {
 class LowTemp extends Component{
   render(){
     return (
-      <div className="col-sm-2 lowTemp">
+      <div className="col-sm-2 col-xs-6 lowTemp">
         <div style={{color:'white'}}>
           <Chevron color="red" font="20px" klasa="glyphicon glyphicon-chevron-down" />
           <span className="degree">{this.props.temp}°</span>
@@ -174,7 +190,7 @@ class LowTemp extends Component{
 class HighTemp extends Component{
   render(){
     return(
-      <div className="col-sm-2 highTemp">
+      <div className="col-sm-2 col-xs-6 highTemp">
           <div style={{color:'white'}}>
             <Chevron color="lightgreen" font="20px" klasa="glyphicon glyphicon-chevron-up" />
             <span className="degree">{this.props.temp}°</span>
