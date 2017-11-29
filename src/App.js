@@ -151,7 +151,7 @@ class WeatherList extends Component {
 
 class PlaceInfo extends Component {
   render(){
-    var t =new Date(this.props.date).toLocaleTimeString();
+    var t =new Date(this.props.date).toLocaleString();
     return(
       <div>
       <div className="col-sm-2 col-xs-4">
@@ -162,7 +162,7 @@ class PlaceInfo extends Component {
           <span className="city">{this.props.name} </span>
         </div>
         <div>
-          <span>Today,</span> {t}
+          <span> {t} </span>
         </div>
       </div>
       </div>
