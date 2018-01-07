@@ -18,7 +18,7 @@ class City extends Component{
     //get the city id from the params
     var city = this.props.params.id;
     //get data from api
-    axios.get('http://api.openweathermap.org/data/2.5/forecast?id='+city+'&APPID=d25b778625fdbfd3f3c5d543c6bb4fb8&units=metric&cnt=8')
+    axios.get('https://api.openweathermap.org/data/2.5/forecast?id='+city+'&APPID=d25b778625fdbfd3f3c5d543c6bb4fb8&units=metric&cnt=8')
     .then(function (response) {
       //once you get the response update the state
       self.setState({

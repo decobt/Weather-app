@@ -65,7 +65,7 @@ class App extends Component {
 
   componentWillMount(){
       var self = this;
-      axios.get('http://api.openweathermap.org/data/2.5/group?id=6058560,6942553,2673730,4219762,4505542,2950159,5107152,5601538,792680,3128760&APPID=d25b778625fdbfd3f3c5d543c6bb4fb8&units=metric')
+      axios.get('https://api.openweathermap.org/data/2.5/group?id=6058560,6942553,2673730,4219762,4505542,2950159,5107152,5601538,792680,3128760&APPID=d25b778625fdbfd3f3c5d543c6bb4fb8&units=metric')
       .then(function (response) {
         //once you get the response update the state
         self.setState({
