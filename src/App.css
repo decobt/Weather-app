@@ -17,3 +17,9 @@
   color:#333;
   transition: all .2s ease-in-out;
 }
+.btn-upgrade{
+  background: #cb4e4e;
+  color: white;
+  border: none;
+  box-shadow: 2px 3px #ab3c3c;
+}

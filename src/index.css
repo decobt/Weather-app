@@ -2,11 +2,7 @@ body {
   margin: 0;
   padding: 20px 0;
   font-family: sans-serif;
-  background: #e74c3c; /* Old browsers */
-  background: -moz-linear-gradient(top, #e74c3c 0%, #6d0019 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #e74c3c 0%,#6d0019 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #e74c3c 0%,#6d0019 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e74c3c', endColorstr='#6d0019',GradientType=0 ); /* IE6-9 */
+  background: #f06060; /* Old browsers */
 }
 html{
   min-height:100%;
@@ -15,8 +11,34 @@ html{
   color:white
 }
 .list{
-  background:white;
-  margin-bottom:20px
+  background:#cb4e4e;
+  margin-bottom:20px;
+  box-shadow: 0 6px #ab3c3c;
+  color:white
+}
+.panel-upgrade{
+  background:#cb4e4e;
+  box-shadow: 0 6px #ab3c3c;
+  color:white
+}
+.table-striped > tbody > tr:nth-of-type(2n+1) {
+    background-color: #ab3c3c;
+}
+.searchbar{
+  margin-bottom: 20px;
+  background: #cb4e4e;
+  padding: 20px;
+  height: 60px;
+  border: none;
+  color: white;
+  box-shadow: 2px 3px #ab3c3c;
+}
+.searchbar:focus{
+  border-color: #ab3c3c;
+  box-shadow: 2px 3px #ab3c3c;
+}
+.searchbar::placeholder{
+  color:white
 }
 .city{font-size:30px;}
 .country{font-size:24px;}

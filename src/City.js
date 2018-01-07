@@ -49,7 +49,8 @@ class City extends Component{
       <div className="row">
         <div className="col-sm-12">
 
-        <div className="panel panel-default"><div className="panel-body">
+        <div className="panel panel-upgrade"><div className="panel-body">
+          <div className="table-responsive">
           <table className="table table-striped">
           <thead>
             <tr>
@@ -64,12 +65,13 @@ class City extends Component{
               {rows}
             </tbody>
           </table>
+          </div>
           </div></div>
           </div>
       </div>
       <div className="row ">
       <div className="col-sm-12">
-        <Link to="/" className="btn btn-default">
+        <Link to="/" className="btn btn-upgrade">
           <span className="glyphicon glyphicon-chevron-left"></span><strong> Go Back</strong>
         </Link>
       </div></div>

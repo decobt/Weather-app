@@ -99,7 +99,7 @@ class App extends Component {
       <div className="App">
         <SearchBar onSearch={this.OnSearchText} onCelClick={this.CelsiusChange} onFarClick={this.FarenheitChange}/>
         {rows}
-        <p className="footer">Weather App, Created by Trayche Roshkoski</p>
+        <p className="footer"><strong>Weather App, Created by Trayche Roshkoski</strong></p>
       </div>
     );
   }
@@ -112,7 +112,7 @@ class SearchBar extends Component {
     return (
       <div className="row">
         <div className="col-sm-10 col-xs-7">
-          <input onChange={this.props.onSearch} type="text" className="form-control" style={{marginBottom:'20px'}} placeholder="Search for a city ..." />
+          <input onChange={this.props.onSearch} type="text" className="form-control searchbar" placeholder="Search for a city ..." />
         </div>
         <div className="col-sm-2 col-xs-5">
           <DegreeSwitcher onCelClick={this.props.onCelClick} onFarClick={this.props.onFarClick}/>
@@ -127,8 +127,8 @@ class DegreeSwitcher extends Component {
   render(){
     return (
       <div className="btn-group">
-          <button type="button" onClick={this.props.onCelClick} className="btn btn-default">°C</button>
-          <button type="button" onClick={this.props.onFarClick} className="btn btn-default">°F</button>
+          <button type="button" onClick={this.props.onCelClick} className="btn btn-upgrade">°C</button>
+          <button type="button" onClick={this.props.onFarClick} className="btn btn-upgrade">°F</button>
       </div>
     );
   }
@@ -157,7 +157,7 @@ class PlaceInfo extends Component {
       <div className="col-sm-2 col-xs-4">
         <img alt={this.props.name} src={'http://openweathermap.org/img/w/'+this.props.icon+'.png'} style={{padding:'20px'}} />
       </div>
-      <div className="col-sm-6 col-xs-8" style={{background:'white', padding:'15px 0px'}}>
+      <div className="col-sm-6 col-xs-8" style={{padding:'15px 0px'}}>
         <div>
           <span className="city">{this.props.name} </span>
         </div>
