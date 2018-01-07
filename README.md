@@ -2,6 +2,10 @@
 
 Weather Application that displays weather for dozen cities. The UI is build using ReactJS and it relies on OpenWeather API to get the latest information.
 
+
+
+[LIVE DEMO](https://weather-app-ui.herokuapp.com/ "Weather App")
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
