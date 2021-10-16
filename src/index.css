@@ -2,7 +2,8 @@ body {
   margin: 0;
   padding: 20px 0;
   font-family: sans-serif;
-  background: #f06060; /* Old browsers */
+  background: rgb(113,83,158);
+  background: linear-gradient(-45deg, rgba(113,83,158,1) 0%, rgba(134,114,173,1) 100%);
 }
 html{
   min-height:100%;
@@ -10,32 +11,67 @@ html{
 .footer{
   color:white
 }
+.weatherPanel{
+  overflow-x: scroll;
+}
+.weatherList{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 .list{
-  background:#cb4e4e;
-  margin-bottom:20px;
-  box-shadow: 0 6px #ab3c3c;
-  color:white
+  background: rgb(89,79,156);
+  background: linear-gradient(-180deg, rgba(89,79,156,1) 0%, rgba(94,185,234,1) 100%);
+  margin: 40px 40px 40px 0px;
+  box-shadow: 2px 4px 15px #2b2b2b;
+  color:white;
+  width:320px;
+  border-radius:36px;
+  -webkit-border-radius:36px;
+  -moz-border-radius:36px;
+  -ms-border-radius:36px;
+  -o-border-radius:36px;
+  text-align: center;
+  padding: 54px 24px;
+  text-decoration: none;
+}
+.mainTemp .measure,
+.mainTemp .degree{
+  font-size:56px;
 }
 .panel-upgrade{
-  background:#cb4e4e;
-  box-shadow: 0 6px #ab3c3c;
-  color:white
+  background:rgba(255,255,255, 0.1);
+  color:white;
+  border: none !important;
 }
+.table-striped th,
+.table-striped td{
+  border: none;
+  vertical-align: middle;
+}
+
 .table-striped > tbody > tr:nth-of-type(2n+1) {
-    background-color: #ab3c3c;
+  background-color: rgba(255,255,255, 0.1);
+  border: none !important;
 }
+
 .searchbar{
   margin-bottom: 20px;
-  background: #cb4e4e;
+  background: rgba(255,255,255, 0.2);
   padding: 20px;
   height: 60px;
   border: none;
   color: white;
-  box-shadow: 2px 3px #ab3c3c;
+  border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
 }
 .searchbar:focus{
-  border-color: #ab3c3c;
-  box-shadow: 2px 3px #ab3c3c;
+  border-color: rgba(255,255,255, 0.2);
+  background: rgba(255,255,255, 0.26);
+  box-shadow: none;
 }
 .searchbar::placeholder{
   color:white
@@ -64,4 +100,15 @@ html{
   color:red;
   font-size:56px;
   margin:30px;
+}
+.extraInfo{
+  width:100%;
+  margin-top: 20px;
+  margin-bottom: 0;
+  padding: 0px 25px;
+}
+.extraInfo div{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
 }

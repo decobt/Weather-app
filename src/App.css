@@ -1,13 +1,30 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: stretch;
+  min-height: 100%;
+}
+.previewWeather{
+  border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+  margin:0px;
 }
 .lowTemp{
-  background:#34495e;
+  background:rgba(255,255,255, 0.2);
   padding: 15px 10px;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
 }
 .highTemp{
-  background:#2c3e50;
+  background:rgba(255,255,255, 0.25);
   padding:15px 10px;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
 .icon{
   padding:20px;
@@ -16,10 +33,14 @@
 .cityLink{
   color:#333;
   transition: all .2s ease-in-out;
+  text-decoration: none !important;
 }
 .btn-upgrade{
-  background: #cb4e4e;
+  background: #2b2b2b;
   color: white;
   border: none;
-  box-shadow: 2px 3px #ab3c3c;
+  margin:0;
+}
+.btn-upgrade:hover{
+  color:white;
 }

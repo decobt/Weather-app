@@ -20,7 +20,7 @@ class App extends Component {
   //update state when user enters text in searchbar
   OnSearchText(e){
     this.setState({
-      searchText:e.target.value
+      searchText: e.target.value
     });
   }
   //fire event when user clicks on celsius button, calculate new temp values
@@ -34,6 +34,7 @@ class App extends Component {
         newdata[i].main.temp_min = ((newdata[i].main.temp_min - 32) / 1.8).toFixed(0);
         //calculate high temperature
         newdata[i].main.temp_max = ((newdata[i].main.temp_max - 32) / 1.8).toFixed(0);
+        newdata[i].main.temp = ((newdata[i].main.temp - 32) / 1.8).toFixed(0);
       }
       //update the state with the new data
       this.setState({
@@ -51,9 +52,10 @@ class App extends Component {
       //loop through the data
       for(var i in newdata){
         //calculate new value for low temperature
-        newdata[i].main.temp_min = Math.round(newdata[i].main.temp_min * 1.8 + 32);
+        newdata[i].main.temp_min = Math.round(newdata[i].main.temp_min * 1.8 + 32).toFixed(0);
         //calculate new value for high temperature
-        newdata[i].main.temp_max = Math.round(newdata[i].main.temp_max * 1.8 + 32);
+        newdata[i].main.temp_max = Math.round(newdata[i].main.temp_max * 1.8 + 32).toFixed(0);
+        newdata[i].main.temp = Math.round(newdata[i].main.temp * 1.8 + 32).toFixed(0);
       }
       //update the state with new values
       this.setState({
@@ -98,7 +100,9 @@ class App extends Component {
     return (
       <div className="App">
         <SearchBar onSearch={this.OnSearchText} onCelClick={this.CelsiusChange} onFarClick={this.FarenheitChange}/>
-        {rows}
+        <div className="weatherPanel">
+          <div className="weatherList">{rows}</div>
+        </div>
         <p className="footer"><strong>Weather App, Created by Trayche Roshkoski</strong></p>
       </div>
     );
@@ -114,7 +118,7 @@ class SearchBar extends Component {
         <div className="col-sm-10 col-xs-7">
           <input onChange={this.props.onSearch} type="text" className="form-control searchbar" placeholder="Search for a city ..." />
         </div>
-        <div className="col-sm-2 col-xs-5">
+        <div className="col-sm-2 col-xs-5 text-right">
           <DegreeSwitcher onCelClick={this.props.onCelClick} onFarClick={this.props.onFarClick}/>
         </div>
       </div>
@@ -139,10 +143,17 @@ class WeatherList extends Component {
   render(){
     return (
       <Link to={'city/'+this.props.data.id} className="cityLink">
-      <div className="list clearfix">
-        <PlaceInfo name={this.props.data.name} date={this.props.data.dt} icon={this.props.data.weather[0].icon} />
-        <LowTemp temp={this.props.data.main.temp_min} degree={this.props.degree}  />
-        <HighTemp temp={this.props.data.main.temp_max} degree={this.props.degree}/>
+      <div className="list text-center">
+        <PlaceInfo temp={this.props.data.main.temp} degree={this.props.degree} name={this.props.data.name} date={this.props.data.dt} icon={this.props.data.weather[0].icon} />
+        <div className="row previewWeather">
+          <LowTemp temp={this.props.data.main.temp_min} degree={this.props.degree}  />
+          <HighTemp temp={this.props.data.main.temp_max} degree={this.props.degree}/>
+        </div>
+        <div className="extraInfo">
+          <div><span>Feels Like</span><span>{this.props.data.main.feels_like}°</span></div>
+          <div><span>Pressure</span><span>{this.props.data.main.pressure}mb</span></div>
+          <div><span>Humidity</span><span>{this.props.data.main.humidity}%</span></div>
+        </div>
       </div>
       </Link>
       );
@@ -151,20 +162,19 @@ class WeatherList extends Component {
 
 class PlaceInfo extends Component {
   render(){
-    var t =new Date(this.props.date).toLocaleString();
+    var t = new Date(this.props.date * 1000).toLocaleString();
     return(
       <div>
-      <div className="col-sm-2 col-xs-4">
-        <img alt={this.props.name} src={'http://openweathermap.org/img/w/'+this.props.icon+'.png'} style={{padding:'20px'}} />
-      </div>
-      <div className="col-sm-6 col-xs-8" style={{padding:'15px 0px'}}>
         <div>
           <span className="city">{this.props.name} </span>
+          <div>{t}</div>
         </div>
-        <div>
-          <span> {t} </span>
+        <div className="col-sm-12">
+          <img alt={this.props.name} src={'http://openweathermap.org/img/wn/'+this.props.icon+'@4x.png'} style={{padding:'20px'}} />
         </div>
-      </div>
+        <div className="mainTemp">
+          <span className="degree">{this.props.temp}°</span>
+        </div>
       </div>
     );
   }
@@ -174,7 +184,7 @@ class PlaceInfo extends Component {
 class LowTemp extends Component{
   render(){
     return (
-      <div className="col-sm-2 col-xs-6 lowTemp">
+      <div className="col-xs-6 col-sm-6 lowTemp">
         <div style={{color:'white'}}>
           <Chevron color="red" font="20px" klasa="glyphicon glyphicon-chevron-down" />
           <span className="degree">{this.props.temp}°</span>
@@ -190,7 +200,7 @@ class LowTemp extends Component{
 class HighTemp extends Component{
   render(){
     return(
-      <div className="col-sm-2 col-xs-6 highTemp">
+      <div className="col-xs-6 col-sm-6 highTemp">
           <div style={{color:'white'}}>
             <Chevron color="lightgreen" font="20px" klasa="glyphicon glyphicon-chevron-up" />
             <span className="degree">{this.props.temp}°</span>

@@ -49,27 +49,31 @@ class City extends Component{
       <div className="row">
         <div className="col-sm-12">
 
-        <div className="panel panel-upgrade"><div className="panel-body">
-          <div className="table-responsive">
-          <table className="table table-striped">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Date/Time</th>
-              <th>Temp (C)</th>
-              <th>Pressure</th>
-              <th>Humidity (%)</th>
-            </tr>
-          </thead>
-            <tbody>
-              {rows}
-            </tbody>
-          </table>
+          <div className="panel panel-upgrade">
+            <div className="panel-body">
+              <div className="table-responsive">
+                <table className="table table-striped">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Date/Time</th>
+                      <th>Temp (C)</th>
+                      <th>Pressure</th>
+                      <th>Humidity (%)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {rows}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
-          </div></div>
-          </div>
+
+        </div>
       </div>
-      <div className="row ">
+
+      <div className="row">
       <div className="col-sm-12">
         <Link to="/" className="btn btn-upgrade">
           <span className="glyphicon glyphicon-chevron-left"></span><strong> Go Back</strong>
@@ -87,7 +91,7 @@ class InfoPanel extends Component{
 
       <tr>
         <td>
-          <img alt={this.props.data.dt} src={'http://openweathermap.org/img/w/'+this.props.data.weather['0'].icon+'.png'} />
+          <img alt={this.props.data.dt} src={'http://openweathermap.org/img/wn/'+this.props.data.weather['0'].icon+'@2x.png'} />
         </td>
         <td>{this.props.data.dt_txt}</td>
         <td>{this.props.data.main.temp}</td>
